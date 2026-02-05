@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Prueba CSS compatible con Dillo</title>
+
+<style>
+body {
+  font-family: sans-serif;
+}
+
+.section {
+  border: 1px solid black;
+  padding: 8px;
+  margin: 10px;
+}
+
+.bgtest {
+  background-color: #ddd;
+}
+
+.colortest {
+  color: darkgreen;
+}
+
+.fonttest {
+  font-family: serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.aligntest {
+  text-align: center;
+}
+
+.widthtest {
+  width: 200px;
+  border: 1px solid red;
+}
+
+.tabletest {
+  border-spacing: 10px;
+}
+
+.vtest td {
+  vertical-align: middle;
+  height: 60px;
+  border: 1px solid black;
+}
+</style>
+</head>
+
+<body>
+
+<center><h1>Documentación de FrameWork-Phisics</h1></center>
+<p>Antes que nada, solo se trabaja en el archivo "simulator.c", ahí encontrará toda la lógica inicial.</p>
+<p>Como detalle, puedes desplazar la camara con 'w','a','s','d','space','shift'; direcciones, arriba y abajo.</p>
+<h2>Creación de entidades</h2>
+<pre class="section bgtest colortest">
+createEntity(manager,"model.obj (principy sphere.obj)","name or NULL, best NULL");
+</pre>
+<h2>Forma de acceder a las entidades</h2>
+<pre class="section bgtest colortest">
+entity *ent = Vector_getValue(manager->entities,index);
+</pre>
+<h2>Atributos de las entidades</h2>
+<pre class="section bgtest colortest">
+typedef struct{
+	char* nameid;
+	vec3 position;
+	vec3 velocity;
+	vec3 acceleration;
+	vec3 color;
+}entity;
+</pre>
+<p>Todos son vectores de R³. Se acceden de la siguiente forma, todos.</p>
+<pre class="section bgtest colortest">
+ent->color[0] = 1.f;
+ent->color[1] = 0.f;
+ent->color[2] = 0.f;
+
+ent->position[n] = x;
+...
+</pre>
+<p>En cuanto al color, 1.f es máximo color, 0.f es apagado. Es RGB.</p>
+<p>Todas las matemáticas están con cglm(Documentación muy fácil de entender).</p>
+<h2>Control de flujo</h2>
+<p>El control de flujo se hace dentro de cada función, la primera solo se ejecuta una vez, la segunda 120 veces por segundo.</p>
+<p>Punto importante para la simulación, el motor renderiza a unos impresionantes 120 FPS.</p>
+<p>Dejo un ejemplo de inicio. Se pueden crear n entidades (o cuerpos).</p>
+<pre class="section bgtest colortest">
+#include "inc/simulator.h"
+#include "inc/cglm/cglm.h"
+#include "inc/main.h"
+#include &lt;math.h&gt;
+
+
+void mainInit(entitymanager* manager)
+{
+	createEntity(maneger,"sphere.obj",NULL);
+	entity *ent = Vector_getValue(manager->entities,0);
+	ent->color[0] = 1.f; // Red
+	ent->color[1] = 0.f; // Green
+	ent->color[2] = 0,f; // Blue
+}
+
+void mainLoop(entitymanager* manager)
+{
+	entity *ent = Vector_getValue(manager->entities,0);
+}
+</pre>
+
+</body>
+</html>

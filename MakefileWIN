@@ -1,0 +1,32 @@
+#CFLAGS		:= -std=c23 -Wall -pedantic -Wall -Wpedantic -Werror -Wextra
+CC		:= x86_64-w64-mingw32-gcc
+include		:= -Iinc -Ilibs
+source		:= src
+SRC		:= $(shell find $(source) -type f -name '*.c')
+objects		:= objwin
+OBJS		:= $(patsubst $(source)/%.c,$(objects)/%.o,$(SRC))
+LIBS		:= -L. -lcglm -lSDL3 -lopengl32
+PROJECT		:= framework-phisics.dll
+
+
+.PHONY:
+
+all: config $(PROJECT)
+
+$(PROJECT): $(objects) $(OBJS)
+	$(CC) -shared objwin/glad.o $(OBJS) $(LIBS) -o $(PROJECT)
+
+$(objects)/%.o: $(source)/%.c
+	$(CC) -std=c23 $(CFLAGS) $< -c -o $@ $(include) -O3
+
+config:
+	mkdir -p objwin bin bin/shaders
+	cp shaders/* bin/shaders/
+	$(CC) -std=c23 libswin/glad/glad.c -c -o objwin/glad.o -Ilibswin
+
+clean:
+	rm -fr objwin
+
+1:
+	gcc main.c src/loadshaders.c obj/glad.o -o game -lSDL3 -Ilibs -Iinc
+
