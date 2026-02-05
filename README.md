@@ -1,8 +1,11 @@
 # FrameWork-Phisics
 
 Requisitos para usar el programa, tener instalado:
+
 make
+
 gcc
+
 Como comandos de terminal.
 
 ```bash
